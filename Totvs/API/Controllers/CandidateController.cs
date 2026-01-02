@@ -54,5 +54,12 @@ namespace Totvs.API.Controllers
 
             return NoContent();
         }
+
+        [HttpPut("{id}/resume")]
+        public async Task<IActionResult> UpdateResume (string id, [FromBody] ResumeRequestDTO request)
+        {
+            await _service.UpdateResumeAsync(id, request);
+            return NoContent();
+        }
     }
 }

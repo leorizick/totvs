@@ -11,7 +11,6 @@ namespace Totvs.Infrastructure.Persistence
 
         public IMongoCollection<Candidate> Candidates { get; }
         public IMongoCollection<Vacancy> Vacancies { get; }
-        public IMongoCollection<Curriculum> Curriculums { get; }
         public MongoContext(IOptions<MongoSettings> settings)
         {
             var client = new MongoClient(settings.Value.ConnectionString);
@@ -19,7 +18,6 @@ namespace Totvs.Infrastructure.Persistence
 
             Candidates = Database.GetCollection<Candidate>("Candidates");
             Vacancies = Database.GetCollection<Vacancy>("Vacancies");
-            Curriculums = Database.GetCollection<Curriculum>("Curriculums");
         }
     }
 }

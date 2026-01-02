@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
 using System.ComponentModel.DataAnnotations;
+using Totvs.Domain.ValueObjects;
 
 namespace Totvs.Domain.Entities
 {
@@ -11,7 +12,8 @@ namespace Totvs.Domain.Entities
         public string Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
-        public DateTime Created {  get; set; } = DateTime.Now;
+        public Resume? Resume { get; set; }
+        public DateTime Created { get; set; } = DateTime.Now;
         public DateTime Updated { get; set; } = DateTime.Now;
 
         public Candidate(string name, string email)
@@ -26,6 +28,7 @@ namespace Totvs.Domain.Entities
             Validate(name, email);
             Name = name;
             Email = email;
+            Updated = DateTime.Now;
         }
 
         private static void Validate(string name, string email)
@@ -35,6 +38,11 @@ namespace Totvs.Domain.Entities
 
             if (!email.Contains("@"))
                 throw new ValidationException("Invalid email");
+        }
+
+        public void UpdateResume(string description)
+        {
+            Resume = new Resume(description);
         }
     }
 }

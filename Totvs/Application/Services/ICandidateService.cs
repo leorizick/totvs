@@ -9,5 +9,6 @@ namespace Totvs.Application.Services
         Task<CandidateResponseDTO> CreateAsync(CandidateRequestDTO requestDTO);
         Task UpdateAsync(string id, CandidateRequestDTO requestDTO);
         Task DeleteAsync(string id);
+        Task UpdateResumeAsync(string id, ResumeRequestDTO request);
     }
 }

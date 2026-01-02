@@ -46,5 +46,17 @@ namespace Totvs.Application.Services
 
             await _candidateRepository.UpdateAsync(id, candidate);
         }
+
+        public async Task UpdateResumeAsync(string id, ResumeRequestDTO request)
+        {
+            var candidate = await _candidateRepository.GetByIdAsync(id);
+
+            if (candidate == null)
+                throw new EntityNotFoundException("Candidate", id);
+
+            candidate.UpdateResume(request.Description);
+
+            await _candidateRepository.UpdateAsync(id, candidate);
+        }
     }
 }
