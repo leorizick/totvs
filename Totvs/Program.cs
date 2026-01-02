@@ -17,7 +17,9 @@ builder.Services.Configure<MongoSettings>(
 builder.Services.AddSingleton<MongoContext>();
 
 builder.Services.AddScoped<ICandidateRepository, CandidateRepository>();
+builder.Services.AddScoped<IVacancyRepository, VacancyRepository>();
 builder.Services.AddScoped<ICandidateService, CandidateService>();
+builder.Services.AddScoped<IVacancyService, VacancyService>();
 
 var app = builder.Build();
 

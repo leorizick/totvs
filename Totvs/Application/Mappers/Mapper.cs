@@ -14,5 +14,15 @@ namespace Totvs.Application.Mappers
                 Name = candidate.Name,
             };
         }
+
+        public static VacancyResponseDTO VacancyToVacancyResponseDTO(Vacancy vacancy)
+        {
+            return new VacancyResponseDTO
+            {
+                Id = vacancy.Id,
+                Name = vacancy.Name,
+                Description = vacancy.Description,
+            };
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
+using System.ComponentModel.DataAnnotations;
 
 namespace Totvs.Domain.Entities
 {
@@ -12,5 +13,28 @@ namespace Totvs.Domain.Entities
         public string Description { get; set; }
         public DateTime Created { get; set; } = DateTime.Now;
         public DateTime Updated { get; set; } = DateTime.Now;
+
+        public Vacancy(string name, string description)
+        {
+            Validate(name, description);
+            Name = name;
+            Description = description;
+        }
+
+        public void Update(string name, string description)
+        {
+            Validate(name, description);
+            Name = name;
+            Description = description;
+        }
+
+        private static void Validate(string name, string description)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ValidationException("Name is required");
+
+            if (string.IsNullOrWhiteSpace(description))
+                throw new ValidationException("Invalid description");
+        }
     }
 }
