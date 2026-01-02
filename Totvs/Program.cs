@@ -1,3 +1,4 @@
+using Totvs.API.Middleware;
 using Totvs.Application.Services;
 using Totvs.Infrastructure.Persistence;
 using Totvs.Infrastructure.Repositories;
@@ -30,6 +31,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 
