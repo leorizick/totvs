@@ -8,43 +8,46 @@ namespace Totvs.Application.Services
 {
     public class VacancyService : IVacancyService
     {
-        private readonly IVacancyRepository _candidateRepository;
+        private readonly IVacancyRepository _vacancyRepository;
 
-        public VacancyService(IVacancyRepository candidateRepository) { _candidateRepository = candidateRepository; }
+        public VacancyService(IVacancyRepository vacansyRepository)
+        {
+            _vacancyRepository = vacansyRepository;
+        }
 
         public async Task<VacancyResponseDTO> CreateAsync(VacancyRequestDTO requestDTO)
         {
             var vacancy = new Vacancy(requestDTO.Name, requestDTO.Description);
-            await _candidateRepository.CreateAsync(vacancy);
+            await _vacancyRepository.CreateAsync(vacancy);
             return Mapper.VacancyToVacancyResponseDTO(vacancy);
         }
 
         public async Task DeleteAsync(string id)
         {
-            await _candidateRepository.DeleteAsync(id);
+            await _vacancyRepository.DeleteAsync(id);
         }
 
         public async Task<IEnumerable<VacancyResponseDTO>> GetAllAsync()
         {
-            var candidates = await _candidateRepository.GetAllAsync();
+            var candidates = await _vacancyRepository.GetAllAsync();
             return candidates.Select(c => Mapper.VacancyToVacancyResponseDTO(c));
         }
 
         public async Task<VacancyResponseDTO> GetByIdAsync(string id)
         {
-            var vacancy = await _candidateRepository.GetByIdAsync(id);
+            var vacancy = await _vacancyRepository.GetByIdAsync(id);
             return Mapper.VacancyToVacancyResponseDTO(vacancy);
         }
 
         public async Task UpdateAsync(string id, VacancyRequestDTO requestDTO)
         {
-            var vacancy = await _candidateRepository.GetByIdAsync(id);
+            var vacancy = await _vacancyRepository.GetByIdAsync(id);
             if (vacancy == null)
                 throw new EntityNotFoundException("Vacancy", id);
 
             vacancy.Update(requestDTO.Name, requestDTO.Description);
 
-            await _candidateRepository.UpdateAsync(id, vacancy);
+            await _vacancyRepository.UpdateAsync(id, vacancy);
         }
     }
 }

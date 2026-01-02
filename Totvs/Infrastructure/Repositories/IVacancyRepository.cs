@@ -9,5 +9,6 @@ namespace Totvs.Infrastructure.Repositories
         Task<Vacancy?> CreateAsync(Vacancy vacancy);
         Task UpdateAsync(string  id, Vacancy vacancy);
         Task DeleteAsync(string id);
+        Task ApplyCandidateAsync(string vacancyId, string candidateId);
     }
 }

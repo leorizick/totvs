@@ -11,6 +11,8 @@ namespace Totvs.Domain.Entities
         public string Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public List<string> CandidateIds { get; set; } = new();
         public DateTime Created { get; set; } = DateTime.Now;
         public DateTime Updated { get; set; } = DateTime.Now;
 

@@ -6,6 +6,7 @@ namespace Totvs.Infrastructure.Repositories
     {
         Task<Candidate?> GetByIdAsync(string id);
         Task<IEnumerable<Candidate>> GetAllAsync();
+        Task<IEnumerable<Candidate>> GetManyByIdsAsync(IEnumerable<string> ids);
         Task<Candidate?> CreateAsync(Candidate candidate);
         Task UpdateAsync(string  id, Candidate candidate);
         Task DeleteAsync(string id);

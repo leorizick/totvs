@@ -39,5 +39,13 @@ namespace Totvs.Infrastructure.Repositories
         {
             await _collection.ReplaceOneAsync(x => x.Id == id, vacancy);
         }
+        public async Task ApplyCandidateAsync(string vacancyId, string candidateId)
+        {
+            var filter = Builders<Vacancy>.Filter.Eq(x => x.Id, vacancyId);
+
+            var update = Builders<Vacancy>.Update.AddToSet("CandidateIds", candidateId);
+
+            await _collection.UpdateOneAsync(filter, update);
+        }
     }
 }
