@@ -1,0 +1,43 @@
+## --- Visual Studio ---
+## Ignora artefatos de compilação
+bin/
+obj/
+[Ee]xpress/
+TestResults/
+
+## Ignora arquivos de cache e estado do VS
+.vs/
+*.user
+*.userosscache
+*.sln.docstates
+
+## --- .NET Core / .NET 8 ---
+## Arquivos de log e publicação
+publish/
+*.log
+*.swp
+.DS_Store
+
+## --- NuGet ---
+## Não salvamos os pacotes no Git, pois o 'dotnet restore' os baixa automaticamente
+node_modules/
+packages/
+*.nuget.props
+*.nuget.targets
+
+## --- Configurações Locais (Segurança) ---
+## Ignora arquivos que podem conter senhas ou chaves de API locais
+appsettings.Development.json
+secrets.json
+.env
+
+## --- Ferramentas e IDEs Adicionais ---
+## Rider / JetBrains
+.idea/
+*.sln.iml
+
+## VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
