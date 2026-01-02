@@ -33,14 +33,15 @@ namespace Totvs.Application.Services
         public async Task<CandidateResponseDTO> GetByIdAsync(string id)
         {
             var candidate = await _candidateRepository.GetByIdAsync(id);
+            Validate(candidate, id);
+
             return Mapper.CandidateToCandidateResponseDTO(candidate);
         }
 
         public async Task UpdateAsync(string id, CandidateRequestDTO requestDTO)
         {
             var candidate = await _candidateRepository.GetByIdAsync(id);
-            if (candidate == null)
-                throw new EntityNotFoundException("Candidate", id);
+            Validate(candidate, id);
 
             candidate.Update(requestDTO.Name, requestDTO.Email);
 
@@ -51,12 +52,17 @@ namespace Totvs.Application.Services
         {
             var candidate = await _candidateRepository.GetByIdAsync(id);
 
-            if (candidate == null)
-                throw new EntityNotFoundException("Candidate", id);
+            Validate(candidate, id);
 
             candidate.UpdateResume(request.Description);
 
             await _candidateRepository.UpdateAsync(id, candidate);
+        }
+
+        private void Validate(Candidate candidate, string id)
+        {
+            if (candidate == null)
+                throw new EntityNotFoundException(nameof(candidate), id);
         }
     }
 }

@@ -30,24 +30,32 @@ namespace Totvs.Application.Services
         public async Task<IEnumerable<VacancyResponseDTO>> GetAllAsync()
         {
             var candidates = await _vacancyRepository.GetAllAsync();
-            return candidates.Select(c => Mapper.VacancyToVacancyResponseDTO(c));
+            return candidates.Select(Mapper.VacancyToVacancyResponseDTO);
         }
 
         public async Task<VacancyResponseDTO> GetByIdAsync(string id)
         {
             var vacancy = await _vacancyRepository.GetByIdAsync(id);
+            Validate(vacancy, id);
+
             return Mapper.VacancyToVacancyResponseDTO(vacancy);
         }
 
         public async Task UpdateAsync(string id, VacancyRequestDTO requestDTO)
         {
             var vacancy = await _vacancyRepository.GetByIdAsync(id);
-            if (vacancy == null)
-                throw new EntityNotFoundException("Vacancy", id);
+
+            Validate(vacancy, id);
 
             vacancy.Update(requestDTO.Name, requestDTO.Description);
 
             await _vacancyRepository.UpdateAsync(id, vacancy);
+        }
+
+        private void Validate(Vacancy vacancy, string id)
+        {
+            if (vacancy == null)
+                throw new EntityNotFoundException(nameof(vacancy), id);
         }
     }
 }
