@@ -1,0 +1,27 @@
+services:
+  mongodb:
+    image: mongo:7
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  api:
+    build:
+      context: .
+      dockerfile: Totvs/API/Dockerfile 
+    container_name: totvs-api
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+    environment:
+      - ASPNETCORE_URLS=http://+:8080
+      - ASPNETCORE_ENVIRONMENT=Development
+      - MongoSettings__ConnectionString=mongodb://mongodb:27017
+      - MongoSettings__DatabaseName=TotvsDb
+
+volumes:
+  mongo_data:
