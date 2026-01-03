@@ -8,12 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAngular",
+    options.AddPolicy("AllowAll",
         policy =>
         {
-            policy.WithOrigins("http://localhost:4200")
-                  .AllowAnyHeader()
-                  .AllowAnyMethod();
+            policy.AllowAnyOrigin()
+                  .AllowAnyMethod()
+                  .AllowAnyHeader();
         });
 });
 
@@ -35,7 +35,7 @@ builder.Services.AddScoped<IVacancyService, VacancyService>();
 builder.Services.AddScoped<IVacancyApplicationService, VacancyApplicationService>();
 
 var app = builder.Build();
-app.UseCors("AllowAngular");
+app.UseCors("AllowAll");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -45,8 +45,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
-
-app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

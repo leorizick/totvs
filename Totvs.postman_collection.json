@@ -47,13 +47,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/api/candidates",
+							"raw": "{{baseUrl}}/api/candidate",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"api",
-								"candidates"
+								"candidate"
 							]
 						}
 					},
@@ -85,12 +85,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/candidates/{{candidateId}}",
+							"raw": "{{baseUrl}}/api/candidate/{{candidateId}}",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"candidates",
+								"api",
+								"candidate",
 								"{{candidateId}}"
 							]
 						}
@@ -127,9 +128,9 @@
 							}
 						},
 						"url": {
-							"raw": "PUT {{baseUrl}}/api/candidate/{{candidateId}}/resume",
+							"raw": "{{baseUrl}}/api/candidate/{{candidateId}}/resume",
 							"host": [
-								"PUT {{baseUrl}}"
+								"{{baseUrl}}"
 							],
 							"path": [
 								"api",
@@ -234,7 +235,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Candidate applied successfully\", function () {\r",
-									"    pm.response.to.have.status(204);\r",
+									"    pm.response.to.have.status(200);\r",
 									"});\r",
 									""
 								],
@@ -301,9 +302,36 @@
 				},
 				{
 					"name": "List Vacancy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Returns list of candidates\", function () {\r",
+									"    const json = pm.response.json();\r",
+									"    pm.expect(json).to.be.an(\"array\");\r",
+									"    pm.expect(json.length).to.be.greaterThan(0);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/vacancy",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"vacancy"
+							]
+						}
 					},
 					"response": []
 				}
