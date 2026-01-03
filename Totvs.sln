@@ -5,7 +5,7 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Totvs", "Totvs\Totvs.csproj", "{A595C520-D071-4D3D-B29B-00ACD0D83249}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{34ECD531-2256-4904-B31F-0FFCBA38A127}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Totvs.Tests", "Tests\Totvs.Tests.csproj", "{34ECD531-2256-4904-B31F-0FFCBA38A127}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
