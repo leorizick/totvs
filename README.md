@@ -9,6 +9,7 @@ API REST desenvolvida em **.NET 8**, utilizando **MongoDB** e aplicando
 - Docker
 - Xunit
 - Swagger
+- Postman
 
 # Arquitetura
 A arquitetura do projeto esta separado em API, Application, Domain, 
@@ -40,12 +41,16 @@ Porem tenho familiaridade com autorização utilizando token JWT.
 Utilização de exceções personalizadas para camada de dominio, como a EntityNotFound e ValidationException.
 Middleware para retorno de reposta 404 Not Found para quando a entidade nao for encontrada.
 
-
 ## Mapper
 Classe de classes Mapper estatica para converter as entidades de dominios em DTOs de resposta para a Api.
 
 ## Testes Unitarios
 Projeto de testes cobrindo todas a logica da camada de serviço e possiveis exceptions
+
+## Testes Automatizados com Postman
+Na pasta raiz do projeto estão os arquivos de exportação do postman, contendo a collection e o enviroment
+com algumas requisições e testes.
+Basta clicar na collection e em RUN, selecionar o enviroment e rodar.
 
 ## Docker
 Tanto a aplicação do Back quanto o banco estão subindo em um container do Docker,

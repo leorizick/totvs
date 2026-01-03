@@ -1,0 +1,313 @@
+{
+	"info": {
+		"_postman_id": "c6b5aaaa-a3b2-44dd-a303-dd467eeeaa29",
+		"name": "Totvs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20209900",
+		"_collection_link": "https://db6666-9213.postman.co/workspace/DB~51bf9c2d-acd2-4fc8-ab69-7d417ae23f57/collection/20209900-c6b5aaaa-a3b2-44dd-a303-dd467eeeaa29?action=share&source=collection_link&creator=20209900"
+	},
+	"item": [
+		{
+			"name": "Candidates",
+			"item": [
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 or 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has id\", function () {\r",
+									"    const json = pm.response.json();\r",
+									"    pm.expect(json.id).to.exist;\r",
+									"\r",
+									"    pm.environment.set(\"candidateId\", json.id);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Candidato Teste\",\r\n  \"email\": \"TESTE@email.com\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/candidates",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"candidates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Candidate name is correct\", function () {\r",
+									"    const json = pm.response.json();\r",
+									"    pm.expect(json.name).to.eql(\"Candidato Teste\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/candidates/{{candidateId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"candidates",
+								"{{candidateId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Resume",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Resume updated\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"description\": \"Backend developer with C#\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "PUT {{baseUrl}}/api/candidate/{{candidateId}}/resume",
+							"host": [
+								"PUT {{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"candidate",
+								"{{candidateId}}",
+								"resume"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Candidates",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Returns list of candidates\", function () {\r",
+									"    const json = pm.response.json();\r",
+									"    pm.expect(json).to.be.an(\"array\");\r",
+									"    pm.expect(json.length).to.be.greaterThan(0);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/candidate",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"candidate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vacancies",
+			"item": [
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Vacancy created\", function () {\r",
+									"    const json = pm.response.json();\r",
+									"    pm.expect(json.id).to.exist;\r",
+									"\r",
+									"    pm.environment.set(\"vacancyId\", json.id);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Backend Developer\",\r\n  \"description\": \"C# and MongoDB\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/vacancy",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"vacancy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Apply candidate in vacancy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Candidate applied successfully\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/vacancyApplication/{{vacancyId}}/apply/{{candidateId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"vacancyApplication",
+								"{{vacancyId}}",
+								"apply",
+								"{{candidateId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List vancy candidates",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Returns list of candidates\", function () {\r",
+									"    const json = pm.response.json();\r",
+									"    pm.expect(json).to.be.an(\"array\");\r",
+									"    pm.expect(json.length).to.be.greaterThan(0);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/vacancyApplication/{{vacancyId}}/candidates",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"vacancyApplication",
+								"{{vacancyId}}",
+								"candidates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Vacancy",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
